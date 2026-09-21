@@ -12,6 +12,7 @@ build/
 
 # Cloudflare
 .dev.vars
+.wrangler/
 
 # Logs
 *.log
