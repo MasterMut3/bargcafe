@@ -39,7 +39,7 @@ jobs:
       - name: Build
         working-directory: frontend
         env:
-          VITE_API_BASE_URL: https://bargcafe-api.soheilsoheil1113.workers.dev
+          VITE_API_BASE_URL: https://bargcafe-api.soheilsoheili1113.workers.dev
         run: npm run build
 
       - name: Setup Pages
