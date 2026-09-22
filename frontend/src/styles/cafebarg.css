@@ -1,0 +1,1811 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap");
+
+:root {
+  --paper: #ead8b2;
+  --paper-2: #dfc898;
+  --paper-light: #f2e4c4;
+
+  --ink: #211b16;
+  --muted: #655744;
+  --line: #30271e;
+  --accent: #7a4b28;
+
+  --shadow:
+    0 12px 35px rgba(32, 24, 15, 0.18);
+
+  --max: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  background: #28231e;
+
+  color: var(--ink);
+
+  font-family:
+    "Vazirmatn",
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 0 20px;
+}
+
+.site {
+  position: relative;
+
+  max-width: var(--max);
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  background: var(--paper);
+
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+}
+
+.site::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.12;
+
+  background-image:
+    radial-gradient(
+      rgba(33, 27, 22, 0.35) 0.6px,
+      transparent 0.6px
+    );
+
+  background-size: 5px 5px;
+
+  z-index: 10;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.site-header {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+
+  align-items: center;
+
+  min-height: 150px;
+
+  padding: 28px 42px 20px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.header-side {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 14px;
+}
+
+.header-side-left {
+  justify-content: flex-start;
+}
+
+.header-side-right {
+  justify-content: flex-end;
+}
+
+.brand {
+  text-align: center;
+}
+
+.brand-symbol {
+  font-family: serif;
+  font-size: 30px;
+}
+
+.brand-name {
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.brand-meta {
+  margin-top: 8px;
+
+  font-family: serif;
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid var(--line);
+
+  background: transparent;
+
+  color: var(--ink);
+
+  border-radius: 50%;
+
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.icon-button:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------------- NAVIGATION ---------------- */
+
+.main-navigation {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 38px;
+
+  padding: 16px 20px;
+
+  border-bottom: 1px solid var(--line);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 17px;
+}
+
+.main-navigation a {
+  position: relative;
+}
+
+.main-navigation a::after {
+  content: "";
+
+  position: absolute;
+
+  right: 0;
+  bottom: -5px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--line);
+
+  transition: width 0.2s;
+}
+
+.main-navigation a:hover::after {
+  width: 100%;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero {
+  display: grid;
+
+  grid-template-columns:
+    1.1fr
+    0.9fr;
+
+  gap: 50px;
+
+  align-items: center;
+
+  padding: 80px 60px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow,
+.section-kicker {
+  color: var(--accent);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  margin: 15px 0;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: clamp(48px, 7vw, 82px);
+
+  line-height: 1.05;
+}
+
+.hero p {
+  max-width: 520px;
+
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 19px;
+
+  line-height: 2;
+}
+
+.primary-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+
+  padding: 0 28px;
+
+  background: var(--ink);
+
+  color: var(--paper-light);
+
+  border: 1px solid var(--ink);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-weight: 600;
+
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.primary-button:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.hero-art {
+  position: relative;
+
+  min-height: 360px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--line);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--paper-2),
+      var(--paper-light)
+    );
+}
+
+.hero-art-inner {
+  font-size: 130px;
+
+  filter: grayscale(1);
+}
+
+.hero-stamp {
+  position: absolute;
+
+  left: 20px;
+  top: 20px;
+
+  display: grid;
+  place-items: center;
+
+  width: 75px;
+  height: 75px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 50%;
+
+  font-family: serif;
+
+  font-size: 11px;
+
+  text-align: center;
+}
+
+/* ---------------- SECTIONS ---------------- */
+
+.section {
+  padding: 65px 50px;
+}
+
+.section-heading {
+  display: flex;
+
+  align-items: end;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 30px;
+
+  border-bottom: 1px solid var(--line);
+
+  padding-bottom: 15px;
+}
+
+.section-heading h2 {
+  margin: 5px 0 0;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 34px;
+}
+
+/* ---------------- CATEGORIES ---------------- */
+
+.category-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+.category-card {
+  min-height: 170px;
+
+  padding: 24px;
+
+  text-align: right;
+
+  border: 0;
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+
+  background: transparent;
+
+  color: var(--ink);
+
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.category-card:hover {
+  background: var(--paper-light);
+
+  transform: translateY(-2px);
+}
+
+.category-icon {
+  display: block;
+
+  margin-bottom: 15px;
+
+  font-size: 36px;
+
+  filter: grayscale(1);
+}
+
+.category-card strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 22px;
+}
+
+.category-card span:last-child {
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  line-height: 1.7;
+}
+
+/* ---------------- MENU ---------------- */
+
+.menu-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.menu-card {
+  overflow: hidden;
+
+  border: 1px solid var(--line);
+
+  background: rgba(
+    242,
+    228,
+    196,
+    0.45
+  );
+}
+
+.menu-image {
+  display: grid;
+  place-items: center;
+
+  height: 220px;
+
+  border-bottom: 1px solid var(--line);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--paper-2),
+      var(--paper-light)
+    );
+
+  overflow: hidden;
+}
+
+.menu-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.menu-image span {
+  font-size: 75px;
+
+  filter: grayscale(1);
+}
+
+.menu-card-content {
+  padding: 20px;
+}
+
+.menu-card-top {
+  display: flex;
+
+  align-items: start;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.menu-card h3 {
+  margin: 0;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 24px;
+}
+
+.price {
+  white-space: nowrap;
+
+  color: var(--accent);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 17px;
+}
+
+.price small {
+  font-size: 11px;
+}
+
+.menu-card p {
+  min-height: 55px;
+
+  margin: 10px 0 20px;
+
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  line-height: 1.8;
+}
+
+.add-button {
+  width: 100%;
+
+  min-height: 42px;
+
+  border: 1px solid var(--line);
+
+  background: transparent;
+
+  color: var(--ink);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.add-button:hover {
+  background: var(--ink);
+  color: var(--paper-light);
+}
+
+.empty-state {
+  padding: 40px;
+
+  border: 1px dashed var(--line);
+
+  color: var(--muted);
+
+  text-align: center;
+}
+
+.menu-filter button {
+  border: 1px solid var(--line);
+
+  background: transparent;
+
+  padding: 7px 18px;
+}
+
+/* ---------------- SPECIAL ---------------- */
+
+.special-section {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  margin: 0 50px 70px;
+
+  border: 1px solid var(--line);
+}
+
+.special-image {
+  min-height: 330px;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--paper-2),
+      var(--paper-light)
+    );
+
+  border-left: 1px solid var(--line);
+}
+
+.special-image span {
+  font-size: 110px;
+
+  filter: grayscale(1);
+}
+
+.special-content {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 45px;
+}
+
+.special-content h2 {
+  margin: 10px 0;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 40px;
+}
+
+.special-content p {
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 18px;
+
+  line-height: 2;
+}
+
+.special-price {
+  margin-top: 20px;
+
+  color: var(--accent);
+
+  font-weight: 700;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.site-footer {
+  display: grid;
+
+  grid-template-columns:
+    2fr
+    1fr
+    1fr;
+
+  gap: 50px;
+
+  padding: 50px;
+
+  border-top: 1px solid var(--line);
+
+  background: var(--paper-2);
+}
+
+.footer-logo {
+  margin-bottom: 10px;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.site-footer h3 {
+  margin-top: 0;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+}
+
+.site-footer p {
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  line-height: 1.9;
+}
+
+/* ---------------- CART ---------------- */
+
+.drawer-backdrop,
+.modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  background: rgba(
+    20,
+    16,
+    12,
+    0.55
+  );
+}
+
+.cart-drawer {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  z-index: 101;
+
+  width: min(
+    430px,
+    92vw
+  );
+
+  height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: var(--paper-light);
+
+  box-shadow:
+    -10px 0 40px
+    rgba(0, 0, 0, 0.25);
+}
+
+.drawer-header {
+  display: flex;
+
+  align-items: start;
+  justify-content: space-between;
+
+  padding: 30px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-header h2 {
+  margin: 4px 0 0;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+}
+
+.close-button {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--line);
+
+  background: transparent;
+
+  font-size: 24px;
+}
+
+.cart-items {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 20px 30px;
+}
+
+.cart-item {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid
+    rgba(48, 39, 30, 0.3);
+}
+
+.cart-item strong,
+.cart-item span {
+  display: block;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+}
+
+.cart-item span {
+  color: var(--muted);
+
+  margin-top: 4px;
+}
+
+.cart-item button {
+  border: 0;
+
+  background: transparent;
+
+  color: var(--accent);
+}
+
+.empty-cart {
+  display: grid;
+
+  place-items: center;
+
+  padding: 70px 20px;
+
+  color: var(--muted);
+
+  text-align: center;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+}
+
+.empty-cart span {
+  font-size: 55px;
+
+  filter: grayscale(1);
+}
+
+.cart-footer {
+  padding: 25px 30px;
+
+  border-top: 1px solid var(--line);
+}
+
+.cart-total {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.primary-button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.4;
+}
+
+/* ---------------- SEARCH ---------------- */
+
+.search-modal {
+  width: min(
+    650px,
+    calc(100vw - 30px)
+  );
+
+  max-height: 85vh;
+
+  overflow-y: auto;
+
+  margin: 8vh auto 0;
+
+  background: var(--paper-light);
+
+  border: 1px solid var(--line);
+
+  box-shadow: var(--shadow);
+}
+
+.search-input {
+  display: block;
+
+  width: calc(100% - 60px);
+
+  margin: 25px 30px;
+
+  padding: 15px 18px;
+
+  border: 1px solid var(--line);
+
+  outline: none;
+
+  background: var(--paper);
+
+  color: var(--ink);
+
+  direction: rtl;
+}
+
+.search-input:focus {
+  box-shadow:
+    0 0 0 2px
+    rgba(122, 75, 40, 0.2);
+}
+
+.search-results {
+  padding: 0 30px 30px;
+}
+
+.search-results > p {
+  color: var(--muted);
+
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+}
+
+.search-result {
+  display: block;
+
+  width: 100%;
+
+  padding: 15px;
+
+  margin-bottom: 10px;
+
+  border: 1px solid var(--line);
+
+  background: transparent;
+
+  text-align: right;
+}
+
+.search-result:hover {
+  background: var(--paper);
+}
+
+.search-result span,
+.search-result small {
+  display: block;
+}
+
+.search-result span {
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
+  font-size: 19px;
+}
+
+.search-result small {
+  margin-top: 4px;
+
+  color: var(--muted);
+}
+
+/* ============================================================================
+   RESPONSIVE IMPROVEMENTS
+   ============================================================================ */
+
+/* 768px breakpoint – tablets */
+@media (max-width: 768px) {
+  .site-header {
+    min-height: 130px;
+    padding: 22px 28px 16px;
+  }
+
+  .brand-name {
+    font-size: 36px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 60px 40px;
+    gap: 40px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 70px);
+  }
+
+  .hero-art {
+    min-height: 300px;
+  }
+
+  .section {
+    padding: 55px 40px;
+  }
+
+  .section-heading h2 {
+    font-size: 30px;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .menu-image {
+    height: 180px;
+  }
+
+  .menu-card-content {
+    padding: 16px;
+  }
+
+  .menu-card h3 {
+    font-size: 20px;
+  }
+
+  .menu-card p {
+    min-height: auto;
+    margin: 8px 0 14px;
+    font-size: 14px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-card {
+    min-height: 140px;
+    padding: 20px;
+  }
+
+  .special-section {
+    grid-template-columns: 1fr;
+    margin: 0 40px 60px;
+  }
+
+  .special-image {
+    min-height: 280px;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .special-image span {
+    font-size: 90px;
+  }
+
+  .special-content {
+    padding: 36px;
+  }
+
+  .special-content h2 {
+    font-size: 34px;
+  }
+
+  .special-content p {
+    font-size: 16px;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    padding: 45px 40px;
+  }
+}
+
+/* 600px breakpoint – large phones */
+@media (max-width: 600px) {
+  .page-shell {
+    padding: 0;
+  }
+
+  .site-header {
+    grid-template-columns: 1fr auto 1fr;
+    min-height: 110px;
+    padding: 16px 16px 12px;
+  }
+
+  .header-side {
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .header-side-right span {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 28px;
+  }
+
+  .brand-meta {
+    font-size: 8px;
+    margin-top: 4px;
+  }
+
+  .icon-button {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .main-navigation {
+    gap: 16px;
+    padding: 12px 16px;
+    font-size: 15px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    white-space: nowrap;
+  }
+
+  .hero {
+    padding: 45px 20px;
+    gap: 30px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 8vw, 50px);
+    margin: 12px 0;
+  }
+
+  .hero p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .hero-art {
+    min-height: 240px;
+  }
+
+  .hero-art-inner {
+    font-size: 100px;
+  }
+
+  .section {
+    padding: 40px 16px;
+  }
+
+  .section-heading {
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-heading h2 {
+    font-size: 26px;
+    margin: 0;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .menu-card {
+    display: flex;
+    gap: 12px;
+  }
+
+  .menu-image {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
+  .menu-image span {
+    font-size: 48px;
+  }
+
+  .menu-card-content {
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu-card h3 {
+    font-size: 16px;
+    margin: 0 0 4px 0;
+  }
+
+  .menu-card-top {
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .price {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .menu-card p {
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 4px 0 8px 0;
+    min-height: auto;
+    flex: 1;
+  }
+
+  .add-button {
+    min-height: 36px;
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+
+  .category-card {
+    min-height: 130px;
+    padding: 16px;
+  }
+
+  .category-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .category-card strong {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .category-card span:last-child {
+    font-size: 12px;
+  }
+
+  .special-section {
+    margin: 0 16px 45px;
+  }
+
+  .special-image {
+    min-height: 220px;
+  }
+
+  .special-image span {
+    font-size: 70px;
+  }
+
+  .special-content {
+    padding: 24px 20px;
+  }
+
+  .special-content h2 {
+    font-size: 26px;
+    margin: 6px 0;
+  }
+
+  .special-content p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 32px 16px;
+  }
+
+  .footer-logo {
+    font-size: 24px;
+  }
+
+  .site-footer h3 {
+    font-size: 14px;
+  }
+
+  .site-footer p {
+    font-size: 13px;
+  }
+}
+
+/* 480px breakpoint – small phones */
+@media (max-width: 480px) {
+  .site-header {
+    grid-template-columns: auto 1fr auto;
+    min-height: 95px;
+    padding: 12px 12px 8px;
+  }
+
+  .header-side {
+    font-size: 11px;
+  }
+
+  .brand-symbol {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 24px;
+  }
+
+  .header-side-left .icon-button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .main-navigation {
+    gap: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .main-navigation a::after {
+    bottom: -4px;
+  }
+
+  .hero {
+    padding: 35px 16px;
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+
+  .hero-art {
+    min-height: 200px;
+  }
+
+  .hero-art-inner {
+    font-size: 80px;
+  }
+
+  .section {
+    padding: 32px 12px;
+  }
+
+  .section-heading {
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+
+  .section-heading h2 {
+    font-size: 22px;
+  }
+
+  .menu-card {
+    display: flex;
+    gap: 10px;
+  }
+
+  .menu-image {
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+  }
+
+  .menu-image span {
+    font-size: 40px;
+  }
+
+  .menu-card-content {
+    padding: 10px;
+  }
+
+  .menu-card h3 {
+    font-size: 15px;
+  }
+
+  .price {
+    font-size: 13px;
+  }
+
+  .menu-card p {
+    font-size: 12px;
+    margin: 3px 0 6px 0;
+  }
+
+  .add-button {
+    min-height: 32px;
+    font-size: 12px;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-card {
+    min-height: 110px;
+    padding: 14px;
+  }
+
+  .category-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .category-card strong {
+    font-size: 14px;
+  }
+
+  .special-section {
+    margin: 0 12px 35px;
+  }
+
+  .special-image {
+    min-height: 180px;
+  }
+
+  .special-image span {
+    font-size: 55px;
+  }
+
+  .special-content {
+    padding: 20px 16px;
+  }
+
+  .special-content h2 {
+    font-size: 22px;
+    margin: 4px 0;
+  }
+
+  .special-content p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .site-footer {
+    gap: 16px;
+    padding: 28px 12px;
+  }
+}
+
+/* 390px breakpoint – compact phones */
+@media (max-width: 390px) {
+  .site-header {
+    min-height: 85px;
+    padding: 10px 10px 6px;
+  }
+
+  .header-side {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .brand-name {
+    font-size: 22px;
+  }
+
+  .brand-meta {
+    font-size: 7px;
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+
+  .icon-button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .main-navigation {
+    gap: 10px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 28px 12px;
+    gap: 18px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    margin: 8px 0;
+  }
+
+  .hero p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .hero-art {
+    min-height: 170px;
+  }
+
+  .hero-art-inner {
+    font-size: 65px;
+  }
+
+  .primary-button {
+    min-height: 40px;
+    padding: 0 20px;
+    font-size: 13px;
+  }
+
+  .section {
+    padding: 28px 10px;
+  }
+
+  .section-heading {
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  .section-kicker {
+    font-size: 13px;
+  }
+
+  .menu-image {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+  }
+
+  .menu-image span {
+    font-size: 36px;
+  }
+
+  .menu-card-content {
+    padding: 8px;
+  }
+
+  .menu-card h3 {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .menu-card-top {
+    gap: 6px;
+    margin-bottom: 2px;
+  }
+
+  .price {
+    font-size: 12px;
+  }
+
+  .menu-card p {
+    font-size: 11px;
+    line-height: 1.3;
+    margin: 2px 0 4px 0;
+  }
+
+  .add-button {
+    min-height: 30px;
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-card {
+    min-height: 100px;
+    padding: 12px;
+  }
+
+  .category-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .category-card strong {
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  .category-card span:last-child {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .special-section {
+    margin: 0 10px 30px;
+  }
+
+  .special-image {
+    min-height: 150px;
+  }
+
+  .special-image span {
+    font-size: 48px;
+  }
+
+  .special-content {
+    padding: 16px 12px;
+  }
+
+  .special-content h2 {
+    font-size: 18px;
+    margin: 2px 0;
+  }
+
+  .special-content p {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .site-footer {
+    gap: 14px;
+    padding: 24px 10px;
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .site-footer h3 {
+    font-size: 13px;
+  }
+
+  .site-footer p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
+
+/* 360px breakpoint – very small phones */
+@media (max-width: 360px) {
+  .site-header {
+    min-height: 80px;
+    padding: 8px 8px 4px;
+  }
+
+  .header-side {
+    font-size: 9px;
+    gap: 3px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .brand-meta {
+    font-size: 6px;
+    letter-spacing: 1.5px;
+  }
+
+  .icon-button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .main-navigation {
+    gap: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .hero {
+    padding: 24px 10px;
+    gap: 16px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 12px;
+  }
+
+  .hero-art {
+    min-height: 140px;
+  }
+
+  .hero-art-inner {
+    font-size: 55px;
+  }
+
+  .section {
+    padding: 24px 8px;
+  }
+
+  .section-heading h2 {
+    font-size: 18px;
+  }
+
+  .menu-image {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+  }
+
+  .menu-image span {
+    font-size: 32px;
+  }
+
+  .menu-card-content {
+    padding: 6px;
+  }
+
+  .menu-card h3 {
+    font-size: 13px;
+  }
+
+  .price {
+    font-size: 11px;
+  }
+
+  .menu-card p {
+    font-size: 10px;
+  }
+
+  .add-button {
+    min-height: 28px;
+    font-size: 10px;
+  }
+
+  .category-card {
+    min-height: 90px;
+    padding: 10px;
+  }
+
+  .category-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .category-card strong {
+    font-size: 12px;
+  }
+
+  .special-section {
+    margin: 0 8px 24px;
+  }
+
+  .special-image {
+    min-height: 120px;
+  }
+
+  .special-image span {
+    font-size: 40px;
+  }
+
+  .special-content {
+    padding: 12px 10px;
+  }
+
+  .special-content h2 {
+    font-size: 16px;
+  }
+
+  .site-footer {
+    gap: 12px;
+    padding: 20px 8px;
+  }
+
+  .footer-logo {
+    font-size: 18px;
+  }
+}
