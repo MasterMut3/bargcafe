@@ -2,6 +2,8 @@ import { json, notFound } from "./response.js";
 import { getBotInfo } from "./services/telegram.js";
 import { categories, items } from "./data/menu.js";
 import { createOrderFromRequest } from "./services/orders.js";
+import { sendMessage } from "./services/telegram.js";
+import { getRepositoryFile } from "./services/github.js";
 
 export async function router(request, env) {
   const url = new URL(request.url);
@@ -61,6 +63,34 @@ export async function router(request, env) {
       requestedItems: body.items,
     });
 
+    const message = [
+      "🧾 سفارش جدید کافه برگ",
+      "",
+      `شماره سفارش: ${order.id}`,
+      `نام: ${order.customerName}`,
+      order.customerPhone
+        ? `تلفن: ${order.customerPhone}`
+        : null,
+      "",
+      ...order.items.map(
+        (item) =>
+          `${item.name} × ${item.quantity} — ${
+            item.quantity * item.unitPrice
+          } تومان`
+      ),
+      "",
+      `مبلغ کل: ${order.total} تومان`,
+      order.notes ? `یادداشت: ${order.notes}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    await sendMessage(
+      env,
+      env.TELEGRAM_ADMIN_CHAT_ID,
+      message
+    );
+
     return json(
       {
         ok: true,
@@ -75,6 +105,42 @@ export async function router(request, env) {
         error: error.message,
       },
       400
+    );
+  }
+}
+  if (
+  request.method === "GET" &&
+  url.pathname === "/api/github/test"
+) {
+  try {
+    const file = await getRepositoryFile(
+      env,
+      "content/items.json"
+    );
+
+    const decoded = Uint8Array.from(
+      atob(file.content.replace(/\n/g, "")),
+      (char) => char.charCodeAt(0)
+    );
+
+    const content = new TextDecoder().decode(decoded);
+
+    return json({
+      ok: true,
+      github: {
+        repository: "MasterMut3/bargcafe",
+        path: "content/items.json",
+        sha: file.sha,
+      },
+      content: JSON.parse(content),
+    });
+  } catch (error) {
+    return json(
+      {
+        ok: false,
+        error: error.message,
+      },
+      500
     );
   }
 }
