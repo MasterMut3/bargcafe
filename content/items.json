@@ -1,0 +1,32 @@
+[
+  {
+    "id": "espresso",
+    "categoryId": "coffee",
+    "name": "اسپرسو",
+    "description": "اسپرسوی خالص با عطر و طعم عمیق",
+    "price": 75000,
+    "image": null,
+    "available": true,
+    "sortOrder": 1
+  },
+  {
+    "id": "latte",
+    "categoryId": "coffee",
+    "name": "کافه لاته",
+    "description": "اسپرسو، شیر بخار داده شده و فوم نرم",
+    "price": 95000,
+    "image": null,
+    "available": true,
+    "sortOrder": 2
+  },
+  {
+    "id": "americano",
+    "categoryId": "coffee",
+    "name": "آمریکانو",
+    "description": "اسپرسو با آب داغ، ساده و خوش‌عطر",
+    "price": 85000,
+    "image": null,
+    "available": true,
+    "sortOrder": 3
+  }
+]

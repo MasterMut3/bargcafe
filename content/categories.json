@@ -1,0 +1,34 @@
+[
+  {
+    "id": "coffee",
+    "name": "قهوه",
+    "description": "اسپرسو، لاته و قهوه‌های کافه برگ",
+    "image": null,
+    "sortOrder": 1,
+    "active": true
+  },
+  {
+    "id": "tea",
+    "name": "چای و دمنوش",
+    "description": "چای‌های گرم و دمنوش‌های آرامش‌بخش",
+    "image": null,
+    "sortOrder": 2,
+    "active": true
+  },
+  {
+    "id": "cold",
+    "name": "نوشیدنی سرد",
+    "description": "نوشیدنی‌های خنک برای روزهای گرم",
+    "image": null,
+    "sortOrder": 3,
+    "active": true
+  },
+  {
+    "id": "dessert",
+    "name": "دسر",
+    "description": "چیزکیک، کیک و شیرینی‌های کافه",
+    "image": null,
+    "sortOrder": 4,
+    "active": true
+  }
+]
