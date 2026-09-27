@@ -30,3 +30,10 @@ export async function telegramRequest(env, method, body = {}) {
 export function getBotInfo(env) {
   return telegramRequest(env, "getMe");
 }
+
+export function sendMessage(env, chatId, text) {
+  return telegramRequest(env, "sendMessage", {
+    chat_id: chatId,
+    text,
+  });
+}
