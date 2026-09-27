@@ -108,7 +108,7 @@ export async function router(request, env) {
     );
   }
 }
-  if (
+ if (
   request.method === "GET" &&
   url.pathname === "/api/github/test"
 ) {
@@ -118,6 +118,17 @@ export async function router(request, env) {
       "content/items.json"
     );
 
+    const binary = atob(
+      file.content.replace(/\n/g, "")
+    );
+
+    const bytes = Uint8Array.from(
+      binary,
+      (char) => char.charCodeAt(0)
+    );
+
+    const content = new TextDecoder().decode(bytes);
+
     return json({
       ok: true,
       github: {
@@ -125,7 +136,7 @@ export async function router(request, env) {
         path: "content/items.json",
         sha: file.sha,
       },
-      raw: file.content,
+      items: JSON.parse(content),
     });
   } catch (error) {
     return json(
