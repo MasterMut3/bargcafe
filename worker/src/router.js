@@ -1,5 +1,6 @@
 import { json, notFound } from "./response.js";
 import { getBotInfo } from "./services/telegram.js";
+import { categories, items } from "./data/menu.js";
 
 export async function router(request, env) {
   const url = new URL(request.url);
@@ -33,6 +34,18 @@ export async function router(request, env) {
       );
     }
   }
+  if (request.method === "GET" && url.pathname === "/api/categories") {
+    return json({
+      ok: true,
+      categories,
+    });
+  }
 
+  if (request.method === "GET" && url.pathname === "/api/items") {
+    return json({
+      ok: true,
+      items,
+    });
+  }
   return notFound();
 }

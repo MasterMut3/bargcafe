@@ -1,6 +1,5 @@
 import { router } from "./router.js";
 import { corsHeaders } from "./cors.js";
-
 export default {
   async fetch(request, env) {
     const headers = corsHeaders(request);
