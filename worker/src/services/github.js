@@ -20,11 +20,22 @@ async function githubRequest(env, path, options = {}) {
     },
   });
 
-  const data = await response.json();
+  const text = await response.text();
+
+  let data;
+
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(
+      `GitHub returned non-JSON response (${response.status}): ${text.slice(0, 200)}`
+    );
+  }
 
   if (!response.ok) {
     throw new Error(
-      data.message || `GitHub API request failed: ${response.status}`
+      data.message ||
+        `GitHub API request failed: ${response.status}`
     );
   }
 

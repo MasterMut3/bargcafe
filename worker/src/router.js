@@ -118,13 +118,6 @@ export async function router(request, env) {
       "content/items.json"
     );
 
-    const decoded = Uint8Array.from(
-      atob(file.content.replace(/\n/g, "")),
-      (char) => char.charCodeAt(0)
-    );
-
-    const content = new TextDecoder().decode(decoded);
-
     return json({
       ok: true,
       github: {
@@ -132,7 +125,7 @@ export async function router(request, env) {
         path: "content/items.json",
         sha: file.sha,
       },
-      content: JSON.parse(content),
+      raw: file.content,
     });
   } catch (error) {
     return json(
