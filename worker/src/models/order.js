@@ -10,7 +10,8 @@ export const ORDER_STATUSES = Object.freeze([
 export function createOrder({
   id,
   customerName,
-  customerPhone,
+  customerPhone = null,
+  notes = "",
   items,
   total,
   status = "pending",
@@ -20,6 +21,7 @@ export function createOrder({
     id,
     customerName,
     customerPhone,
+    notes,
     items,
     total,
     status,
