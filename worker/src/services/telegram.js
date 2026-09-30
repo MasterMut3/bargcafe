@@ -1,6 +1,6 @@
 const TELEGRAM_API = "https://api.telegram.org";
 
-export async function telegramRequest(env, method, body = {}) {
+async function telegramRequest(env, method, body = {}) {
   if (!env.TELEGRAM_BOT_TOKEN) {
     throw new Error("TELEGRAM_BOT_TOKEN is not configured");
   }
@@ -20,7 +20,8 @@ export async function telegramRequest(env, method, body = {}) {
 
   if (!response.ok || !data.ok) {
     throw new Error(
-      data.description || `Telegram API request failed: ${response.status}`
+      data.description ||
+        `Telegram API request failed: ${response.status}`
     );
   }
 

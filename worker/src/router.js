@@ -2,7 +2,10 @@ import { json, notFound } from "./response.js";
 import { getBotInfo } from "./services/telegram.js";
 import { categories, items } from "./data/menu.js";
 import { createOrderFromRequest } from "./services/orders.js";
-import { sendMessage } from "./services/telegram.js";
+import {
+  getBotInfo,
+  sendMessage,
+} from "./services/telegram.js";
 import {
   getRepositoryFile,
   updateRepositoryFile,
@@ -222,6 +225,43 @@ if (
   }
 } 
 
+if (
+  request.method === "POST" &&
+  url.pathname === "/api/telegram/webhook"
+) {
+  try {
+    const update = await request.json();
+
+    console.log("Telegram update:", JSON.stringify(update));
+
+    if (update.message?.text) {
+      const chatId = update.message.chat.id;
+      const text = update.message.text.trim();
+
+      if (text === "/start") {
+        await sendMessage(
+          env,
+          chatId,
+          "☕ کافه برگ\n\nپنل مدیریت به‌زودی آماده است."
+        );
+      }
+    }
+
+    return json({
+      ok: true,
+    });
+  } catch (error) {
+    console.error("Telegram webhook error:", error);
+
+    return json(
+      {
+        ok: false,
+        error: error.message,
+      },
+      500
+    );
+  }
+}
 
 
 return notFound();
