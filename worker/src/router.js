@@ -228,6 +228,22 @@ if (
   request.method === "POST" &&
   url.pathname === "/api/telegram/webhook"
 ) {
+  const secret = request.headers.get(
+    "X-Telegram-Bot-Api-Secret-Token"
+  );
+
+  if (
+    !env.TELEGRAM_WEBHOOK_SECRET ||
+    secret !== env.TELEGRAM_WEBHOOK_SECRET
+  ) {
+    return json(
+      {
+        ok: false,
+        error: "Unauthorized",
+      },
+      401
+    );
+  }{
   try {
     const update = await request.json();
 
