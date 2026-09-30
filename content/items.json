@@ -28,5 +28,15 @@
     "image": null,
     "available": true,
     "sortOrder": 3
+  },
+  {
+    "id": "test-latte",
+    "categoryId": "coffee",
+    "name": "???? ????",
+    "description": "???? ???????",
+    "price": 99000,
+    "image": null,
+    "available": true,
+    "sortOrder": 4
   }
 ]
