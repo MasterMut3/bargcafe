@@ -1,5 +1,4 @@
 import { json, notFound } from "./response.js";
-import { getBotInfo } from "./services/telegram.js";
 import { categories, items } from "./data/menu.js";
 import { createOrderFromRequest } from "./services/orders.js";
 import {
