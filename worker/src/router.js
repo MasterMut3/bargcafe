@@ -3,7 +3,10 @@ import { getBotInfo } from "./services/telegram.js";
 import { categories, items } from "./data/menu.js";
 import { createOrderFromRequest } from "./services/orders.js";
 import { sendMessage } from "./services/telegram.js";
-import { getRepositoryFile } from "./services/github.js";
+import {
+  getRepositoryFile,
+  updateRepositoryFile,
+} from "./services/github.js";
 
 export async function router(request, env) {
   const url = new URL(request.url);
@@ -148,5 +151,78 @@ export async function router(request, env) {
     );
   }
 }
-  return notFound();
+if (
+  request.method === "POST" &&
+  url.pathname === "/api/admin/items"
+) {
+  try {
+    const body = await request.json();
+
+    if (!body.name || !body.categoryId || !body.price) {
+      return json(
+        {
+          ok: false,
+          error: "name, categoryId and price are required",
+        },
+        400
+      );
+    }
+
+    const file = await getRepositoryFile(
+      env,
+      "content/items.json"
+    );
+
+    const binary = atob(
+      file.content.replace(/\n/g, "")
+    );
+
+    const bytes = Uint8Array.from(
+      binary,
+      (char) => char.charCodeAt(0)
+    );
+
+    const content = new TextDecoder().decode(bytes);
+
+    const items = JSON.parse(content);
+
+    const item = {
+      id: body.id || crypto.randomUUID(),
+      categoryId: body.categoryId,
+      name: body.name,
+      description: body.description || "",
+      price: Number(body.price),
+      image: body.image || null,
+      available: body.available ?? true,
+      sortOrder: body.sortOrder ?? items.length + 1,
+    };
+
+    items.push(item);
+
+    await updateRepositoryFile(
+      env,
+      "content/items.json",
+      JSON.stringify(items, null, 2) + "\n",
+      `feat: add menu item ${item.id}`
+    );
+
+    return json({
+      ok: true,
+      item,
+    }, 201);
+
+  } catch (error) {
+    return json(
+      {
+        ok: false,
+        error: error.message,
+      },
+      500
+    );
+  }
+} 
+
+
+
+return notFound();
 }

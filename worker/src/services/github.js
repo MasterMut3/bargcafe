@@ -49,3 +49,31 @@ export async function getRepositoryFile(env, path) {
     `/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`
   );
 }
+export async function updateRepositoryFile(
+  env,
+  path,
+  content,
+  message
+) {
+  const existing = await getRepositoryFile(env, path);
+
+  const encodedContent = btoa(
+    unescape(
+      encodeURIComponent(content)
+    )
+  );
+
+  return githubRequest(
+    env,
+    `/repos/${OWNER}/${REPO}/contents/${path}`,
+    {
+      method: "PUT",
+      body: JSON.stringify({
+        message,
+        content: encodedContent,
+        sha: existing.sha,
+        branch: BRANCH,
+      }),
+    }
+  );
+}
