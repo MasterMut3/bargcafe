@@ -77,3 +77,25 @@ export async function updateRepositoryFile(
     }
   );
 }
+export async function getRepositoryJson(env, path) {
+  const file = await getRepositoryFile(env, path);
+
+  if (!file.content) {
+    throw new Error(`GitHub file is empty or unavailable: ${path}`);
+  }
+
+  const binary = atob(file.content.replace(/\n/g, ""));
+
+  const bytes = Uint8Array.from(
+    binary,
+    (char) => char.charCodeAt(0)
+  );
+
+  const content = new TextDecoder("utf-8").decode(bytes);
+
+  try {
+    return JSON.parse(content);
+  } catch {
+    throw new Error(`Invalid JSON in repository file: ${path}`);
+  }
+}

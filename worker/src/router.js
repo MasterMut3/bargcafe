@@ -10,6 +10,7 @@ import {
 import {
   getRepositoryFile,
   updateRepositoryFile,
+  getRepositoryJson,
 } from "./services/github.js";
 
 import {
@@ -63,30 +64,82 @@ export async function router(request, env) {
     }
   }
 
+// --------------------------------------------------
+// PUBLIC MENU API - GITHUB BACKED
+// --------------------------------------------------
 
-  // --------------------------------------------------
-  // PUBLIC MENU API
-  // --------------------------------------------------
+if (
+  request.method === "GET" &&
+  url.pathname === "/api/categories"
+) {
+  try {
+    const repositoryCategories = await getRepositoryJson(
+      env,
+      "content/categories.json"
+    );
 
-  if (
-    request.method === "GET" &&
-    url.pathname === "/api/categories"
-  ) {
+    const activeCategories = repositoryCategories
+      .filter((category) => category.active !== false)
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+
     return json({
       ok: true,
-      categories,
+      categories: activeCategories,
     });
-  }
+  } catch (error) {
+    console.error("Categories API error:", error);
 
-  if (
-    request.method === "GET" &&
-    url.pathname === "/api/items"
-  ) {
+    return json(
+      {
+        ok: false,
+        error: "Could not load categories",
+      },
+      500
+    );
+  }
+}
+
+if (
+  request.method === "GET" &&
+  url.pathname === "/api/items"
+) {
+  try {
+    const [repositoryItems, repositoryCategories] =
+      await Promise.all([
+        getRepositoryJson(env, "content/items.json"),
+        getRepositoryJson(env, "content/categories.json"),
+      ]);
+
+    const activeCategoryIds = new Set(
+      repositoryCategories
+        .filter((category) => category.active !== false)
+        .map((category) => category.id)
+    );
+
+    const availableItems = repositoryItems
+      .filter(
+        (item) =>
+          item.available !== false &&
+          activeCategoryIds.has(item.categoryId)
+      )
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+
     return json({
       ok: true,
-      items,
+      items: availableItems,
     });
+  } catch (error) {
+    console.error("Items API error:", error);
+
+    return json(
+      {
+        ok: false,
+        error: "Could not load menu items",
+      },
+      500
+    );
   }
+}
 
 
   // --------------------------------------------------
