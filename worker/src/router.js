@@ -1,19 +1,31 @@
 import { json, notFound } from "./response.js";
 import { categories, items } from "./data/menu.js";
 import { createOrderFromRequest } from "./services/orders.js";
+
 import {
   getBotInfo,
   sendMessage,
 } from "./services/telegram.js";
+
 import {
   getRepositoryFile,
   updateRepositoryFile,
 } from "./services/github.js";
 
+import {
+  getTelegramRole,
+  isMenuManager,
+  canManageSystem,
+} from "./services/auth.js";
+
+
 export async function router(request, env) {
   const url = new URL(request.url);
 
-  // Health
+  // --------------------------------------------------
+  // HEALTH CHECK
+  // --------------------------------------------------
+
   if (
     request.method === "GET" &&
     url.pathname === "/api/health"
@@ -24,7 +36,11 @@ export async function router(request, env) {
     });
   }
 
-  // Telegram API test
+
+  // --------------------------------------------------
+  // TELEGRAM BOT TEST
+  // --------------------------------------------------
+
   if (
     request.method === "GET" &&
     url.pathname === "/api/telegram/test"
@@ -34,11 +50,7 @@ export async function router(request, env) {
 
       return json({
         ok: true,
-        telegram: {
-          id: bot.id,
-          username: bot.username,
-          is_bot: bot.is_bot,
-        },
+        bot,
       });
     } catch (error) {
       return json(
@@ -51,7 +63,11 @@ export async function router(request, env) {
     }
   }
 
-  // Categories
+
+  // --------------------------------------------------
+  // PUBLIC MENU API
+  // --------------------------------------------------
+
   if (
     request.method === "GET" &&
     url.pathname === "/api/categories"
@@ -62,7 +78,6 @@ export async function router(request, env) {
     });
   }
 
-  // Items
   if (
     request.method === "GET" &&
     url.pathname === "/api/items"
@@ -73,7 +88,11 @@ export async function router(request, env) {
     });
   }
 
-  // Create order
+
+  // --------------------------------------------------
+  // CREATE ORDER
+  // --------------------------------------------------
+
   if (
     request.method === "POST" &&
     url.pathname === "/api/orders"
@@ -81,43 +100,19 @@ export async function router(request, env) {
     try {
       const body = await request.json();
 
-      const order = createOrderFromRequest({
-        id: crypto.randomUUID(),
-        customerName: body.customerName,
-        customerPhone: body.customerPhone,
-        notes: body.notes,
-        requestedItems: body.items,
-      });
+      const order = createOrderFromRequest(body);
 
-      const message = [
-        "🧾 سفارش جدید کافه برگ",
-        "",
-        `شماره سفارش: ${order.id}`,
-        `نام: ${order.customerName}`,
-        order.customerPhone
-          ? `تلفن: ${order.customerPhone}`
-          : null,
-        "",
-        ...order.items.map(
-          (item) =>
-            `${item.name} × ${item.quantity} — ${
-              item.quantity * item.unitPrice
-            } تومان`
-        ),
-        "",
-        `مبلغ کل: ${order.total} تومان`,
-        order.notes
-          ? `یادداشت: ${order.notes}`
-          : null,
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      await sendMessage(
-        env,
-        env.TELEGRAM_ADMIN_CHAT_ID,
-        message
-      );
+      if (env.TELEGRAM_ADMIN_CHAT_ID) {
+        await sendMessage(
+          env,
+          env.TELEGRAM_ADMIN_CHAT_ID,
+          `🛎 سفارش جدید کافه برگ\n\n${JSON.stringify(
+            order,
+            null,
+            2
+          )}`
+        );
+      }
 
       return json(
         {
@@ -137,7 +132,11 @@ export async function router(request, env) {
     }
   }
 
-  // GitHub test
+
+  // --------------------------------------------------
+  // GITHUB CONNECTION TEST
+  // --------------------------------------------------
+
   if (
     request.method === "GET" &&
     url.pathname === "/api/github/test"
@@ -148,25 +147,13 @@ export async function router(request, env) {
         "content/items.json"
       );
 
-      const binary = atob(
-        file.content.replace(/\n/g, "")
-      );
-
-      const bytes = Uint8Array.from(
-        binary,
-        (char) => char.charCodeAt(0)
-      );
-
-      const content = new TextDecoder().decode(bytes);
-
       return json({
         ok: true,
-        github: {
-          repository: "MasterMut3/bargcafe",
-          path: "content/items.json",
+        file: {
+          name: file.name,
+          path: file.path,
           sha: file.sha,
         },
-        items: JSON.parse(content),
       });
     } catch (error) {
       return json(
@@ -179,24 +166,41 @@ export async function router(request, env) {
     }
   }
 
-  // Add menu item
+
+  // --------------------------------------------------
+  // ADD MENU ITEM (PROTECTED API)
+  // --------------------------------------------------
+
   if (
     request.method === "POST" &&
     url.pathname === "/api/admin/items"
   ) {
+    const adminKey = env.ADMIN_API_SECRET;
+    const providedKey = request.headers.get("X-Admin-Key");
+
+    if (!adminKey || providedKey !== adminKey) {
+      return json(
+        {
+          ok: false,
+          error: "Unauthorized",
+        },
+        401
+      );
+    }
+
     try {
       const body = await request.json();
 
       if (
         !body.name ||
         !body.categoryId ||
-        !body.price
+        body.price === undefined ||
+        body.price === null
       ) {
         return json(
           {
             ok: false,
-            error:
-              "name, categoryId and price are required",
+            error: "name, categoryId and price are required",
           },
           400
         );
@@ -218,7 +222,7 @@ export async function router(request, env) {
 
       const content = new TextDecoder().decode(bytes);
 
-      const items = JSON.parse(content);
+      const repositoryItems = JSON.parse(content);
 
       const item = {
         id: body.id || crypto.randomUUID(),
@@ -229,15 +233,28 @@ export async function router(request, env) {
         image: body.image || null,
         available: body.available ?? true,
         sortOrder:
-          body.sortOrder ?? items.length + 1,
+          body.sortOrder ?? repositoryItems.length + 1,
       };
 
-      items.push(item);
+      if (
+        !Number.isFinite(item.price) ||
+        item.price < 0
+      ) {
+        return json(
+          {
+            ok: false,
+            error: "Invalid price",
+          },
+          400
+        );
+      }
+
+      repositoryItems.push(item);
 
       await updateRepositoryFile(
         env,
         "content/items.json",
-        JSON.stringify(items, null, 2) + "\n",
+        JSON.stringify(repositoryItems, null, 2) + "\n",
         `feat: add menu item ${item.id}`
       );
 
@@ -259,7 +276,11 @@ export async function router(request, env) {
     }
   }
 
-  // Telegram webhook
+
+  // --------------------------------------------------
+  // TELEGRAM WEBHOOK
+  // --------------------------------------------------
+
   if (
     request.method === "POST" &&
     url.pathname === "/api/telegram/webhook"
@@ -284,27 +305,146 @@ export async function router(request, env) {
     try {
       const update = await request.json();
 
-      console.log(
-        "Telegram update:",
-        JSON.stringify(update)
-      );
+      const message = update.message;
 
-      if (update.message?.text) {
-        const chatId = update.message.chat.id;
-        const text = update.message.text.trim();
+      if (!message?.text) {
+        return json({ ok: true });
+      }
 
-        if (text === "/start") {
+      const chatId = message.chat.id;
+      const userId = message.from?.id;
+      const command = message.text.trim().split(/\s+/)[0];
+
+      const role = getTelegramRole(env, userId);
+
+      // ----------------------------------------------
+      // START
+      // ----------------------------------------------
+
+      if (command === "/start") {
+        if (isMenuManager(role)) {
           await sendMessage(
             env,
             chatId,
-            "☕ کافه برگ\n\nپنل مدیریت به‌زودی آماده است."
+            `☕ کافه برگ
+
+سلام، به پنل مدیریت خوش آمدی.
+
+نقش شما: ${role}
+
+دستورات:
+
+/menu - مدیریت منو
+/categories - مشاهده دسته‌بندی‌ها
+/products - مشاهده محصولات`
+          );
+        } else {
+          await sendMessage(
+            env,
+            chatId,
+            "☕ به کافه برگ خوش آمدید!\n\nبرای مشاهده منو و سفارش، از وب‌سایت کافه استفاده کنید."
           );
         }
+
+        return json({ ok: true });
       }
 
-      return json({
-        ok: true,
-      });
+
+      // ----------------------------------------------
+      // RESTRICTED ADMIN COMMANDS
+      // ----------------------------------------------
+
+      const adminCommands = [
+        "/menu",
+        "/categories",
+        "/products",
+      ];
+
+      if (adminCommands.includes(command)) {
+        if (!isMenuManager(role)) {
+          await sendMessage(
+            env,
+            chatId,
+            "⛔ شما اجازه دسترسی به پنل مدیریت را ندارید."
+          );
+
+          return json({ ok: true });
+        }
+
+        if (command === "/menu") {
+          await sendMessage(
+            env,
+            chatId,
+            `🛠 مدیریت منوی کافه برگ
+
+برای مدیریت منو از دستورات زیر استفاده کن:
+
+/categories - دسته‌بندی‌ها
+/products - محصولات
+
+امکانات مدیریت منو را در مرحله بعد اضافه می‌کنیم.`
+          );
+        }
+
+        if (command === "/categories") {
+          await sendMessage(
+            env,
+            chatId,
+            "📂 بخش دسته‌بندی‌ها هنوز در حال آماده‌سازی است."
+          );
+        }
+
+        if (command === "/products") {
+          await sendMessage(
+            env,
+            chatId,
+            "🍽 بخش محصولات هنوز در حال آماده‌سازی است."
+          );
+        }
+
+        return json({ ok: true });
+      }
+
+
+      // ----------------------------------------------
+      // DEVELOPER-ONLY COMMANDS
+      // ----------------------------------------------
+
+      if (command === "/system") {
+        if (!canManageSystem(role)) {
+          await sendMessage(
+            env,
+            chatId,
+            "⛔ این دستور فقط برای توسعه‌دهنده در دسترس است."
+          );
+
+          return json({ ok: true });
+        }
+
+        await sendMessage(
+          env,
+          chatId,
+          "⚙️ دسترسی توسعه‌دهنده تأیید شد."
+        );
+
+        return json({ ok: true });
+      }
+
+
+      // ----------------------------------------------
+      // UNKNOWN COMMAND
+      // ----------------------------------------------
+
+      if (command.startsWith("/")) {
+        await sendMessage(
+          env,
+          chatId,
+          "دستور شناخته نشد. برای شروع از /start استفاده کن."
+        );
+      }
+
+      return json({ ok: true });
+
     } catch (error) {
       console.error(
         "Telegram webhook error:",
@@ -320,6 +460,11 @@ export async function router(request, env) {
       );
     }
   }
+
+
+  // --------------------------------------------------
+  // NOT FOUND
+  // --------------------------------------------------
 
   return notFound();
 }
