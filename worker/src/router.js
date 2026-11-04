@@ -366,7 +366,10 @@ if (
 
       const chatId = message.chat.id;
       const userId = message.from?.id;
-      const command = message.text.trim().split(/\s+/)[0];
+      const command = message.text
+                                  .trim()
+                                  .split(/\s+/)[0]
+                                  .split("@")[0];
 
       const role = getTelegramRole(env, userId);
 
@@ -411,6 +414,8 @@ if (
         "/menu",
         "/categories",
         "/products",
+        "/addproduct",
+        "/addcategory",
       ];
 
       if (adminCommands.includes(command)) {
@@ -424,41 +429,275 @@ if (
           return json({ ok: true });
         }
 
+        // MAIN MENU
         if (command === "/menu") {
           await sendMessage(
             env,
             chatId,
-            `🛠 مدیریت منوی کافه برگ
+            `☕ مدیریت منوی کافه برگ
 
-برای مدیریت منو از دستورات زیر استفاده کن:
+      /categories - مشاهده دسته‌بندی‌ها
+      /products - مشاهده محصولات
 
-/categories - دسته‌بندی‌ها
-/products - محصولات
+      برای افزودن محصول:
+      /addproduct categoryId | name | description | price
 
-امکانات مدیریت منو را در مرحله بعد اضافه می‌کنیم.`
+      برای افزودن دسته‌بندی:
+      /addcategory id | name | description
+
+      مثال:
+      /addproduct coffee | کافه موکا | اسپرسو و شیر | 120000`
           );
+
+          return json({ ok: true });
         }
 
+        // LIST CATEGORIES
         if (command === "/categories") {
+          const data = await getRepositoryJson(
+            env,
+            "content/categories.json"
+          );
+
+          const activeCategories = data
+            .filter((category) => category.active !== false)
+            .sort((a, b) => a.sortOrder - b.sortOrder);
+
+          const message = activeCategories.length
+            ? activeCategories
+                .map(
+                  (category, index) =>
+                    `${index + 1}. ${category.name}\nID: ${category.id}`
+                )
+                .join("\n\n")
+            : "هنوز دسته‌بندی فعالی وجود ندارد.";
+
           await sendMessage(
             env,
             chatId,
-            "📂 بخش دسته‌بندی‌ها هنوز در حال آماده‌سازی است."
+            `📂 دسته‌بندی‌های کافه برگ\n\n${message}`
           );
+
+          return json({ ok: true });
         }
 
+        // LIST PRODUCTS
         if (command === "/products") {
+          const data = await getRepositoryJson(
+            env,
+            "content/items.json"
+          );
+
+          const availableItems = data
+            .filter((item) => item.available !== false)
+            .sort((a, b) => a.sortOrder - b.sortOrder);
+
+          const message = availableItems.length
+            ? availableItems
+                .slice(0, 30)
+                .map(
+                  (item, index) =>
+                    `${index + 1}. ${item.name}\n💰 ${item.price.toLocaleString("en-US")} تومان\nID: ${item.id}`
+                )
+                .join("\n\n")
+            : "هنوز محصول فعالی وجود ندارد.";
+
           await sendMessage(
             env,
             chatId,
-            "🍽 بخش محصولات هنوز در حال آماده‌سازی است."
+            `🍽 محصولات کافه برگ\n\n${message}`
           );
+
+          return json({ ok: true });
         }
 
-        return json({ ok: true });
+        // ADD PRODUCT
+        if (command === "/addproduct") {
+          const input = message.text
+            .trim()
+            .replace(/^\/addproduct(?:@\w+)?\s*/i, "");
+
+          const parts = input.split("|").map((part) => part.trim());
+
+          if (
+            parts.length !== 4 ||
+            parts.some((part) => !part)
+          ) {
+            await sendMessage(
+              env,
+              chatId,
+              `فرمت وارد کردن محصول صحیح نیست.
+
+      فرمت:
+      /addproduct categoryId | name | description | price
+
+      مثال:
+      /addproduct coffee | کافه موکا | اسپرسو و شیر | 120000`
+            );
+
+            return json({ ok: true });
+          }
+
+          const [categoryId, name, description, rawPrice] = parts;
+          const price = Number(rawPrice);
+
+          if (!Number.isFinite(price) || price < 0) {
+            await sendMessage(
+              env,
+              chatId,
+              "❌ قیمت باید یک عدد معتبر و غیرمنفی باشد."
+            );
+
+            return json({ ok: true });
+          }
+
+          const [categoriesData, itemsData] = await Promise.all([
+            getRepositoryJson(env, "content/categories.json"),
+            getRepositoryJson(env, "content/items.json"),
+          ]);
+
+          const category = categoriesData.find(
+            (entry) =>
+              entry.id === categoryId &&
+              entry.active !== false
+          );
+
+          if (!category) {
+            await sendMessage(
+              env,
+              chatId,
+              "❌ دسته‌بندی پیدا نشد یا غیرفعال است.\nاز /categories برای مشاهده شناسه‌ها استفاده کن."
+            );
+
+            return json({ ok: true });
+          }
+
+          const item = {
+            id: crypto.randomUUID(),
+            categoryId,
+            name,
+            description,
+            price,
+            image: null,
+            available: true,
+            sortOrder:
+              Math.max(0, ...itemsData.map((entry) => Number(entry.sortOrder) || 0)) + 1,
+          };
+
+          itemsData.push(item);
+
+          await updateRepositoryFile(
+            env,
+            "content/items.json",
+            JSON.stringify(itemsData, null, 2) + "\n",
+            `feat: add menu item ${item.id}`
+          );
+
+          await sendMessage(
+            env,
+            chatId,
+            `✅ محصول با موفقیت ثبت شد.
+
+      🍽 ${item.name}
+      📂 ${category.name}
+      💰 ${item.price.toLocaleString("en-US")} تومان
+
+      شناسه: ${item.id}`
+          );
+
+          return json({ ok: true });
+        }
+
+        // ADD CATEGORY
+        if (command === "/addcategory") {
+          const input = message.text
+            .trim()
+            .replace(/^\/addcategory(?:@\w+)?\s*/i, "");
+
+          const parts = input.split("|").map((part) => part.trim());
+
+          if (
+            parts.length !== 3 ||
+            parts.some((part) => !part)
+          ) {
+            await sendMessage(
+              env,
+              chatId,
+              `فرمت وارد کردن دسته‌بندی صحیح نیست.
+
+      فرمت:
+      /addcategory id | name | description
+
+      مثال:
+      /addcategory breakfast | صبحانه | انواع صبحانه`
+            );
+
+            return json({ ok: true });
+          }
+
+          const [id, name, description] = parts;
+
+          if (!/^[a-z0-9-]+$/.test(id)) {
+            await sendMessage(
+              env,
+              chatId,
+              "❌ شناسه باید فقط شامل حروف انگلیسی کوچک، عدد و خط تیره باشد."
+            );
+
+            return json({ ok: true });
+          }
+
+          const categoriesData = await getRepositoryJson(
+            env,
+            "content/categories.json"
+          );
+
+          if (categoriesData.some((category) => category.id === id)) {
+            await sendMessage(
+              env,
+              chatId,
+              "❌ این شناسه قبلاً استفاده شده است."
+            );
+
+            return json({ ok: true });
+          }
+
+          const category = {
+            id,
+            name,
+            description,
+            image: null,
+            sortOrder:
+              Math.max(
+                0,
+                ...categoriesData.map(
+                  (entry) => Number(entry.sortOrder) || 0
+                )
+              ) + 1,
+            active: true,
+          };
+
+          categoriesData.push(category);
+
+          await updateRepositoryFile(
+            env,
+            "content/categories.json",
+            JSON.stringify(categoriesData, null, 2) + "\n",
+            `feat: add category ${id}`
+          );
+
+          await sendMessage(
+            env,
+            chatId,
+            `✅ دسته‌بندی با موفقیت ثبت شد.
+
+      📂 ${category.name}
+      شناسه: ${category.id}`
+          );
+
+          return json({ ok: true });
+        }
       }
-
-
       // ----------------------------------------------
       // DEVELOPER-ONLY COMMANDS
       // ----------------------------------------------
