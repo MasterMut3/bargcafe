@@ -1,42 +1,732 @@
 [
   {
     "id": "espresso",
-    "categoryId": "coffee",
+    "categoryId": "western_cafe",
     "name": "اسپرسو",
     "description": "اسپرسوی خالص با عطر و طعم عمیق",
-    "price": 75000,
+    "price": 100000,
     "image": null,
     "available": true,
     "sortOrder": 1
   },
   {
     "id": "latte",
-    "categoryId": "coffee",
+    "categoryId": "western_cafe",
     "name": "کافه لاته",
     "description": "اسپرسو، شیر بخار داده شده و فوم نرم",
-    "price": 95000,
+    "price": 223000,
     "image": null,
     "available": true,
     "sortOrder": 2
   },
   {
     "id": "americano",
-    "categoryId": "coffee",
+    "categoryId": "western_cafe",
     "name": "آمریکانو",
     "description": "اسپرسو با آب داغ، ساده و خوش‌عطر",
-    "price": 85000,
+    "price": 140000,
     "image": null,
     "available": true,
     "sortOrder": 3
   },
   {
     "id": "bdbf9a5c-ea01-4f94-a008-f2637815d995",
-    "categoryId": "coffee",
+    "categoryId": "western_cafe",
     "name": "کافه موکا",
     "description": "اسپرسو و شیر",
-    "price": 120000,
+    "price": 245000,
+    "image": null,
+    "available": true,
+    "sortOrder": 4
+  },
+  {
+    "id": "espresso_zafarani",
+    "categoryId": "western_cafe",
+    "name": "اسپرسو زعفرانی",
+    "description": "اسپرسو با طعم زعفران",
+    "price": 142000,
     "image": null,
     "available": true,
     "sortOrder": 5
+  },
+  {
+    "id": "cappuccino",
+    "categoryId": "western_cafe",
+    "name": "کاپوچینو",
+    "description": "اسپرسو، شیر و فوم غنی",
+    "price": 223000,
+    "image": null,
+    "available": true,
+    "sortOrder": 6
+  },
+  {
+    "id": "turkish_coffee",
+    "categoryId": "western_cafe",
+    "name": "قهوه ترک",
+    "description": "قهوه سنتی ترک",
+    "price": 160000,
+    "image": null,
+    "available": true,
+    "sortOrder": 7
+  },
+  {
+    "id": "greek_coffee",
+    "categoryId": "western_cafe",
+    "name": "قهوه یونانی",
+    "description": "قهوه یونانی اصیل",
+    "price": 185000,
+    "image": null,
+    "available": true,
+    "sortOrder": 8
+  },
+  {
+    "id": "french_coffee",
+    "categoryId": "western_cafe",
+    "name": "فرانسه",
+    "description": "قهوه فرانسوی",
+    "price": 170000,
+    "image": null,
+    "available": true,
+    "sortOrder": 9
+  },
+  {
+    "id": "caramel_macchiato",
+    "categoryId": "western_cafe",
+    "name": "کارامل ماکیاتو",
+    "description": "اسپرسو، شیر و سس کارامل",
+    "price": 245000,
+    "image": null,
+    "available": true,
+    "sortOrder": 10
+  },
+  {
+    "id": "affogato",
+    "categoryId": "western_cafe",
+    "name": "آفوگاتو",
+    "description": "اسپرسو روی بستنی",
+    "price": 210000,
+    "image": null,
+    "available": true,
+    "sortOrder": 11
+  },
+  {
+    "id": "hot_chocolate",
+    "categoryId": "western_cafe",
+    "name": "شکلات داغ",
+    "description": "نوشیدنی گرم شکلاتی",
+    "price": 255000,
+    "image": null,
+    "available": true,
+    "sortOrder": 12
+  },
+  {
+    "id": "tea_doshlameh",
+    "categoryId": "tea",
+    "name": "چای دشللمه (کم‌باریک)",
+    "description": "چای سنتی کمروباریک",
+    "price": 38000,
+    "image": null,
+    "available": true,
+    "sortOrder": 13
+  },
+  {
+    "id": "tea_siah",
+    "categoryId": "tea",
+    "name": "چای سیاه",
+    "description": "لیوانی / با نبات",
+    "price": 80000,
+    "image": null,
+    "available": true,
+    "sortOrder": 14
+  },
+  {
+    "id": "tea_sabz",
+    "categoryId": "tea",
+    "name": "چای سبز",
+    "description": "چای سبز دم‌کرده",
+    "price": 91000,
+    "image": null,
+    "available": true,
+    "sortOrder": 15
+  },
+  {
+    "id": "tea_torsh",
+    "categoryId": "tea",
+    "name": "چای ترش",
+    "description": "چای ترش دم‌کرده",
+    "price": 110000,
+    "image": null,
+    "available": true,
+    "sortOrder": 16
+  },
+  {
+    "id": "tea_masala",
+    "categoryId": "tea",
+    "name": "چای ماسالا",
+    "description": "چای ادویه‌دار هندی",
+    "price": 195000,
+    "image": null,
+    "available": true,
+    "sortOrder": 17
+  },
+  {
+    "id": "tea_morakashi",
+    "categoryId": "tea",
+    "name": "چای مراکشی",
+    "description": "چای سبز، نعناع، دارچین",
+    "price": 195000,
+    "image": null,
+    "available": true,
+    "sortOrder": 18
+  },
+  {
+    "id": "chocolate_cake",
+    "categoryId": "cake_dessert",
+    "name": "کیک شکلاتی",
+    "description": "کیک خوشمزه شکلاتی",
+    "price": 170000,
+    "image": null,
+    "available": true,
+    "sortOrder": 19
+  },
+  {
+    "id": "plain_cheesecake",
+    "categoryId": "cake_dessert",
+    "name": "چیزکیک ساده",
+    "description": "چیزکیک کلاسیک",
+    "price": 200000,
+    "image": null,
+    "available": true,
+    "sortOrder": 20
+  },
+  {
+    "id": "damnoush_panjgah",
+    "categoryId": "damnoush",
+    "name": "پنجگاه",
+    "description": "زعفران، دارچین، زنجبیل، گل سرخ، لیمو",
+    "price": 155000,
+    "image": null,
+    "available": true,
+    "sortOrder": 21
+  },
+  {
+    "id": "damnoush_leyli_majnoun",
+    "categoryId": "damnoush",
+    "name": "لیلی و مجنون",
+    "description": "به، به‌لیمو",
+    "price": 138000,
+    "image": null,
+    "available": true,
+    "sortOrder": 22
+  },
+  {
+    "id": "damnoush_bakhtiari",
+    "categoryId": "damnoush",
+    "name": "بختیاری",
+    "description": "آویشن، رزماری، نعناع، بابونه",
+    "price": 155000,
+    "image": null,
+    "available": true,
+    "sortOrder": 23
+  },
+  {
+    "id": "damnoush_roohafza",
+    "categoryId": "damnoush",
+    "name": "روح‌افزا",
+    "description": "گل گاوزبان، به‌لیمو، بهارنارنج، چای ترش، گل سرخ",
+    "price": 161000,
+    "image": null,
+    "available": true,
+    "sortOrder": 24
+  },
+  {
+    "id": "damnoush_gol_bahar",
+    "categoryId": "damnoush",
+    "name": "گل‌بهار",
+    "description": "به‌لیمو، نعناع، لیمو",
+    "price": 155000,
+    "image": null,
+    "available": true,
+    "sortOrder": 25
+  },
+  {
+    "id": "nimroo",
+    "categoryId": "breakfast",
+    "name": "نیمرو",
+    "description": "تخم‌مرغ نیمرو",
+    "price": 210000,
+    "image": null,
+    "available": true,
+    "sortOrder": 26
+  },
+  {
+    "id": "omelet",
+    "categoryId": "breakfast",
+    "name": "املت",
+    "description": "املت گوجه‌فرنگی سنتی",
+    "price": 270000,
+    "image": null,
+    "available": true,
+    "sortOrder": 27
+  },
+  {
+    "id": "sir_dong",
+    "categoryId": "breakfast",
+    "name": "سیردنگ",
+    "description": "غذای سنتی",
+    "price": 235000,
+    "image": null,
+    "available": true,
+    "sortOrder": 28
+  },
+  {
+    "id": "omelet_sosis",
+    "categoryId": "breakfast",
+    "name": "املت سوسیس",
+    "description": "املت با سوسیس",
+    "price": 350000,
+    "image": null,
+    "available": true,
+    "sortOrder": 29
+  },
+  {
+    "id": "nan_panir",
+    "categoryId": "breakfast",
+    "name": "نان و پنیر",
+    "description": "نان تازه و پنیر سنتی",
+    "price": 200000,
+    "image": null,
+    "available": true,
+    "sortOrder": 30
+  },
+  {
+    "id": "sib_zamini_sadeh",
+    "categoryId": "western_food",
+    "name": "سیب‌زمینی ساده",
+    "description": "سیب‌زمینی سرخ‌کرده ترد",
+    "price": 350000,
+    "image": null,
+    "available": true,
+    "sortOrder": 31
+  },
+  {
+    "id": "sib_zamini_makhsoos",
+    "categoryId": "western_food",
+    "name": "سیب‌زمینی مخصوص",
+    "description": "سیب‌زمینی سرخ‌کرده ویژه با پنیر و سس",
+    "price": 430000,
+    "image": null,
+    "available": true,
+    "sortOrder": 32
+  },
+  {
+    "id": "chips_panir",
+    "categoryId": "western_food",
+    "name": "چیپس و پنیر",
+    "description": "چیپس ترد با پنیر آب‌شده",
+    "price": 565000,
+    "image": null,
+    "available": true,
+    "sortOrder": 33
+  },
+  {
+    "id": "pasta_mirza_alfredo",
+    "categoryId": "western_food",
+    "name": "پاستا میرزا آلفردو",
+    "description": "پاستا با سس آلفردوی مخصوص",
+    "price": 480000,
+    "image": null,
+    "available": true,
+    "sortOrder": 34
+  },
+  {
+    "id": "salad_caesar",
+    "categoryId": "western_food",
+    "name": "سالاد سزار",
+    "description": "سالاد سزار با مرغ گریل‌شده",
+    "price": 475000,
+    "image": null,
+    "available": true,
+    "sortOrder": 35
+  },
+  {
+    "id": "sib_zamini_sauce_alfredo",
+    "categoryId": "western_food",
+    "name": "سیب‌زمینی با سس آلفردو",
+    "description": "سیب‌زمینی سرخ‌کرده با سس آلفردو",
+    "price": 450000,
+    "image": null,
+    "available": true,
+    "sortOrder": 36
+  },
+  {
+    "id": "hamburger_makhsoos",
+    "categoryId": "western_food",
+    "name": "همبرگر مخصوص",
+    "description": "همبرگر دست‌ساز گوشت و مخلفات",
+    "price": 500000,
+    "image": null,
+    "available": true,
+    "sortOrder": 37
+  },
+  {
+    "id": "sib_sosis",
+    "categoryId": "traditional_food",
+    "name": "سیب و سوسیس",
+    "description": "سیب‌زمینی سرخ‌کرده با سوسیس",
+    "price": 430000,
+    "image": null,
+    "available": true,
+    "sortOrder": 38
+  },
+  {
+    "id": "kashk_bademjan",
+    "categoryId": "traditional_food",
+    "name": "کشک و بادمجان",
+    "description": "کشک بادمجون سنتی خوشمزه",
+    "price": 400000,
+    "image": null,
+    "available": true,
+    "sortOrder": 39
+  },
+  {
+    "id": "morgh_bandari",
+    "categoryId": "traditional_food",
+    "name": "مرغ بندری",
+    "description": "خوراک مرغ تند بندری",
+    "price": 480000,
+    "image": null,
+    "available": true,
+    "sortOrder": 40
+  },
+  {
+    "id": "mirza_ghasemi",
+    "categoryId": "traditional_food",
+    "name": "میرزاقاسمی",
+    "description": "میرزاقاسمی اصیل شمالی",
+    "price": 380000,
+    "image": null,
+    "available": true,
+    "sortOrder": 41
+  },
+  {
+    "id": "mojito",
+    "categoryId": "mocktails",
+    "name": "موهیتو",
+    "description": "سیروپ موهیتو، لیمو، نعناع، سودا",
+    "price": 224000,
+    "image": null,
+    "available": true,
+    "sortOrder": 42
+  },
+  {
+    "id": "lemonade",
+    "categoryId": "mocktails",
+    "name": "لیمواد",
+    "description": "سیروپ لیمو، لیموی تازه، سودا",
+    "price": 215000,
+    "image": null,
+    "available": true,
+    "sortOrder": 43
+  },
+  {
+    "id": "jamayika",
+    "categoryId": "mocktails",
+    "name": "جامائیکا",
+    "description": "سیروپ آلبالو، لیمو، فلفل قرمز، سودا",
+    "price": 239000,
+    "image": null,
+    "available": true,
+    "sortOrder": 44
+  },
+  {
+    "id": "zest_mocktail",
+    "categoryId": "mocktails",
+    "name": "زست (Zest)",
+    "description": "سیروپ انار، توت‌فرنگی و بلوبری، لیمو، سودا",
+    "price": 253000,
+    "image": null,
+    "available": true,
+    "sortOrder": 45
+  },
+  {
+    "id": "rudy_mocktail",
+    "categoryId": "mocktails",
+    "name": "رودی (Rudy)",
+    "description": "سیروپ انار، توت‌فرنگی و بلوبری، نارنج، لیمو، سودا",
+    "price": 269000,
+    "image": null,
+    "available": true,
+    "sortOrder": 46
+  },
+  {
+    "id": "shake_chocolate",
+    "categoryId": "shake",
+    "name": "شیک شکلات",
+    "description": "شیک ترکیبی شکلاتی",
+    "price": 275000,
+    "image": null,
+    "available": true,
+    "sortOrder": 47
+  },
+  {
+    "id": "shake_vanilla",
+    "categoryId": "shake",
+    "name": "شیک وانیل",
+    "description": "شیک وانیلی خنک",
+    "price": 275000,
+    "image": null,
+    "available": true,
+    "sortOrder": 48
+  },
+  {
+    "id": "shake_mango",
+    "categoryId": "shake",
+    "name": "شیک انبه",
+    "description": "شیک انبه تازه",
+    "price": 275000,
+    "image": null,
+    "available": true,
+    "sortOrder": 49
+  },
+  {
+    "id": "shake_blueberry",
+    "categoryId": "shake",
+    "name": "شیک بلوبری",
+    "description": "شیک بلوبری",
+    "price": 310000,
+    "image": null,
+    "available": true,
+    "sortOrder": 50
+  },
+  {
+    "id": "shake_peanut",
+    "categoryId": "shake",
+    "name": "شیک بادام‌زمینی",
+    "description": "شیک کرم بادام‌زمینی",
+    "price": 325000,
+    "image": null,
+    "available": true,
+    "sortOrder": 51
+  },
+  {
+    "id": "icecream_blueberry_vanilla",
+    "categoryId": "ice_cream",
+    "name": "بستنی بلوبری و وانیل",
+    "description": "بستنی با طعم بلوبری و وانیل",
+    "price": 215000,
+    "image": null,
+    "available": true,
+    "sortOrder": 52
+  },
+  {
+    "id": "icecream_vanilla_chocolate",
+    "categoryId": "ice_cream",
+    "name": "بستنی وانیل و شکلات",
+    "description": "بستنی با طعم وانیل و شکلات",
+    "price": 215000,
+    "image": null,
+    "available": true,
+    "sortOrder": 53
+  },
+  {
+    "id": "icecream_shahryar_vanilla",
+    "categoryId": "ice_cream",
+    "name": "بستنی شاه‌توت و وانیل",
+    "description": "بستنی با طعم شاه‌توت و وانیل",
+    "price": 215000,
+    "image": null,
+    "available": true,
+    "sortOrder": 54
+  },
+  {
+    "id": "icecream_mango_chocolate",
+    "categoryId": "ice_cream",
+    "name": "بستنی انبه و شکلات",
+    "description": "بستنی با طعم انبه و شکلات",
+    "price": 215000,
+    "image": null,
+    "available": true,
+    "sortOrder": 55
+  },
+  {
+    "id": "sharbat_gol_rokh",
+    "categoryId": "syrups",
+    "name": "گل رخ",
+    "description": "کرن‌بری، انبه، لیمو",
+    "price": 274000,
+    "image": null,
+    "available": true,
+    "sortOrder": 56
+  },
+  {
+    "id": "sharbat_iran_dokht",
+    "categoryId": "syrups",
+    "name": "ایران‌دخت",
+    "description": "خیار، سکنجبین",
+    "price": 193000,
+    "image": null,
+    "available": true,
+    "sortOrder": 57
+  },
+  {
+    "id": "sharbat_beigam_jan",
+    "categoryId": "syrups",
+    "name": "بیگم جان",
+    "description": "لیمو، نعناع، زعفران",
+    "price": 247000,
+    "image": null,
+    "available": true,
+    "sortOrder": 58
+  },
+  {
+    "id": "sharbat_rostam",
+    "categoryId": "syrups",
+    "name": "رستم",
+    "description": "انرژی‌زا، بلوبری، نعناع، لیمو، زعفران",
+    "price": 293000,
+    "image": null,
+    "available": true,
+    "sortOrder": 59
+  },
+  {
+    "id": "sharbat_qajari",
+    "categoryId": "syrups",
+    "name": "قجری",
+    "description": "بر پایه قهوه: اسپرسو، فندق، کارامل",
+    "price": 247000,
+    "image": null,
+    "available": true,
+    "sortOrder": 60
+  },
+  {
+    "id": "sharbat_shadokht",
+    "categoryId": "syrups",
+    "name": "شادوخت",
+    "description": "هل، انبه، شکلات",
+    "price": 261000,
+    "image": null,
+    "available": true,
+    "sortOrder": 61
+  },
+  {
+    "id": "sharbat_barg",
+    "categoryId": "syrups",
+    "name": "شربت برگ (پیشنهاد ما)",
+    "description": "ترکیب ویژه کافه",
+    "price": 239000,
+    "image": null,
+    "available": true,
+    "sortOrder": 62
+  },
+  {
+    "id": "sharbat_mehin_taj",
+    "categoryId": "syrups",
+    "name": "مهین تاج",
+    "description": "نسترن، زعفران",
+    "price": 187000,
+    "image": null,
+    "available": true,
+    "sortOrder": 63
+  },
+  {
+    "id": "sharbat_mah_pari",
+    "categoryId": "syrups",
+    "name": "ماه پری",
+    "description": "بیدمشک، زعفران",
+    "price": 187000,
+    "image": null,
+    "available": true,
+    "sortOrder": 64
+  },
+  {
+    "id": "sharbat_rooh_parvar",
+    "categoryId": "syrups",
+    "name": "روح‌پرور",
+    "description": "لیمو، گل سرخ، زعفران",
+    "price": 187000,
+    "image": null,
+    "available": true,
+    "sortOrder": 65
+  },
+  {
+    "id": "sharbat_shahzad",
+    "categoryId": "syrups",
+    "name": "شهرزاد",
+    "description": "بهارنارنج، زعفران",
+    "price": 187000,
+    "image": null,
+    "available": true,
+    "sortOrder": 66
+  },
+  {
+    "id": "sharbat_taj_ol_molook",
+    "categoryId": "syrups",
+    "name": "تاج‌الملوک",
+    "description": "پرتقال، آلبالو",
+    "price": 247000,
+    "image": null,
+    "available": true,
+    "sortOrder": 67
+  },
+  {
+    "id": "sharbat_sanam",
+    "categoryId": "syrups",
+    "name": "صنم",
+    "description": "هل، کرن‌بری، لیمو",
+    "price": 261000,
+    "image": null,
+    "available": true,
+    "sortOrder": 68
+  },
+  {
+    "id": "sharbat_del_ara",
+    "categoryId": "syrups",
+    "name": "دل‌آرا",
+    "description": "میکس انار، توت‌فرنگی و بلوبری",
+    "price": 273000,
+    "image": null,
+    "available": true,
+    "sortOrder": 69
+  },
+  {
+    "id": "sharbat_mirza",
+    "categoryId": "syrups",
+    "name": "میرزا",
+    "description": "پرتقال، کارامل",
+    "price": 261000,
+    "image": null,
+    "available": true,
+    "sortOrder": 70
+  },
+  {
+    "id": "sharbat_gol_chehreh",
+    "categoryId": "syrups",
+    "name": "گل‌چهره",
+    "description": "انبه، هل، کرن‌بری",
+    "price": 261000,
+    "image": null,
+    "available": true,
+    "sortOrder": 71
+  },
+  {
+    "id": "sharbat_sogoli",
+    "categoryId": "syrups",
+    "name": "سوگلی",
+    "description": "بلوبری، آناناس، پرتقال، لیمو",
+    "price": 283000,
+    "image": null,
+    "available": true,
+    "sortOrder": 72
+  },
+  {
+    "id": "sharbat_pari_chehreh",
+    "categoryId": "syrups",
+    "name": "پری‌چهره",
+    "description": "انبه، بلوبری، لیمو",
+    "price": 274000,
+    "image": null,
+    "available": true,
+    "sortOrder": 73
   }
 ]

@@ -1,50 +1,90 @@
 [
   {
-    "id": "coffee",
-    "name": "قهوه",
-    "description": "اسپرسو، لاته و قهوه‌های کافه برگ",
+    "id": "tea",
+    "name": "چای دمی",
+    "description": "چای‌های دمی سنتی و لیوانی",
     "image": null,
     "sortOrder": 1,
     "active": true
   },
   {
-    "id": "tea",
-    "name": "چای و دمنوش",
-    "description": "چای‌های گرم و دمنوش‌های آرامش‌بخش",
+    "id": "cake_dessert",
+    "name": "کیک ودسر",
+    "description": "کیک‌های روز، شکلاتی و چیزکیک",
     "image": null,
     "sortOrder": 2,
     "active": true
   },
   {
-    "id": "cold",
-    "name": "نوشیدنی سرد",
-    "description": "نوشیدنی‌های خنک برای روزهای گرم",
+    "id": "damnoush",
+    "name": "دمنوش",
+    "description": "دمنوش‌های آرامش‌بخش و گیاهی",
     "image": null,
     "sortOrder": 3,
     "active": true
   },
   {
-    "id": "dessert",
-    "name": "دسر",
-    "description": "چیزکیک، کیک و شیرینی‌های کافه",
+    "id": "breakfast",
+    "name": "صبحانه",
+    "description": "صبحانه گرم و سرد",
     "image": null,
     "sortOrder": 4,
     "active": true
   },
   {
-    "id": "dessert",
-    "name": "دسر",
-    "description": "چیزکیک، کیک و شیرینی‌های کافه",
+    "id": "western_food",
+    "name": "فرنگی(غذا)",
+    "description": "پیش‌غذا، پاستا، سالاد و برگر",
     "image": null,
-    "sortOrder": 4,
+    "sortOrder": 5,
     "active": true
   },
   {
-    "id": "dessert",
-    "name": "دسر",
-    "description": "چیزکیک، کیک و شیرینی‌های کافه",
+    "id": "traditional_food",
+    "name": "سنتی(غذا)",
+    "description": "غذاها و خوراک‌های سنتی",
     "image": null,
-    "sortOrder": 4,
+    "sortOrder": 6,
+    "active": true
+  },
+  {
+    "id": "mocktails",
+    "name": "موکتل ها",
+    "description": "موکتل‌های ترکیبی و کافه",
+    "image": null,
+    "sortOrder": 7,
+    "active": true
+  },
+  {
+    "id": "western_cafe",
+    "name": "فرنگی(کافه)",
+    "description": "قهوه‌ها و نوشیدنی‌های گرم پایه اسپرسو",
+    "image": null,
+    "sortOrder": 8,
+    "active": true
+  },
+  {
+    "id": "shake",
+    "name": "شیک",
+    "description": "شیک‌های خنک و غلیظ",
+    "image": null,
+    "sortOrder": 9,
+    "active": true
+  },
+  {
+    "id": "ice_cream",
+    "name": "بستنی",
+    "description": "بستنی‌های طعم‌دار و ترکیبی",
+    "image": null,
+    "sortOrder": 10,
+    "active": true
+  },
+  {
+    "id": "syrups",
+    "name": "شربت ها",
+    "description": "شربت‌های سنتی، گیاهی و میوه‌ای",
+    "image": null,
+    "sortOrder": 11,
     "active": true
   }
 ]
