@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #2D4A3E;
+  --color-brand-green-dark: #1C332B;
+  --color-brand-green-light: #3A5E50;
+  --color-brand-cream: #FAF6ED;
+  --color-brand-cream-paper: #F3ECE0;
+  --color-brand-gold: #C5A059;
+  --color-brand-gold-dark: #9A7B3E;
+  --color-brand-wood: #3C2A21;
+  --color-brand-wood-light: #5D4037;
+
+  --font-sans: "Vazirmatn", sans-serif;
+  --font-heading: "Lalezar", "Vazirmatn", cursive;
+}
+
+body {
+  background-color: #FAF6ED;
+  background-image:
+    radial-gradient(#2D4A3E 0.4px, transparent 0.4px),
+    radial-gradient(#2D4A3E 0.4px, #FAF6ED 0.4px);
+  background-size: 14px 14px;
+  background-position: 0 0, 7px 7px;
+  color: #2D4A3E;
+  font-family: "Vazirmatn", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.vintage-card-mobile {
+  background-color: #F8F3E8;
+  border: 2px solid #2D4A3E;
+  box-shadow: 3px 3px 0 #C5A059, 5px 5px 0 #2D4A3E;
+}
+
+.vintage-btn-mobile {
+  background: linear-gradient(180deg, #3A5E50 0%, #2D4A3E 100%);
+  border: 2px solid #C5A059;
+  box-shadow: 2px 2px 0 #3C2A21;
+  min-height: 44px;
+}
+.vintage-btn-mobile:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #3C2A21;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spinning { animation: spin 3s linear infinite; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.animate-slide-up { animation: slideUp 0.25s ease-out; }

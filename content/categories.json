@@ -30,5 +30,21 @@
     "image": null,
     "sortOrder": 4,
     "active": true
+  },
+  {
+    "id": "dessert",
+    "name": "دسر",
+    "description": "چیزکیک، کیک و شیرینی‌های کافه",
+    "image": null,
+    "sortOrder": 4,
+    "active": true
+  },
+  {
+    "id": "dessert",
+    "name": "دسر",
+    "description": "چیزکیک، کیک و شیرینی‌های کافه",
+    "image": null,
+    "sortOrder": 4,
+    "active": true
   }
 ]

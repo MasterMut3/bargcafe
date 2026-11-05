@@ -1,38 +1,10 @@
-function Footer() {
+import React from "react";
+
+export default function Footer() {
   return (
-    <footer className="site-footer" id="about">
-      <div>
-        <div className="footer-logo">
-          ❧ کافه برگ
-        </div>
-
-        <p>
-          جایی برای قهوه، گفتگو و کمی آرام‌تر
-          زندگی کردن.
-        </p>
-      </div>
-
-      <div>
-        <h3>ساعات کاری</h3>
-
-        <p>
-          شنبه تا پنجشنبه
-          <br />
-          ۹ صبح تا ۱۱ شب
-        </p>
-      </div>
-
-      <div id="contact">
-        <h3>تماس</h3>
-
-        <p>
-          تهران، خیابان کافه
-          <br />
-          ۰۲۱-۱۲۳۴۵۶۷۸
-        </p>
-      </div>
+    <footer className="bg-brand-green text-brand-cream text-center py-4 px-4 text-xs border-t-2 border-brand-gold mt-6">
+      <p className="font-heading text-sm text-brand-gold">کافه برگ • Leaf Café</p>
+      <p className="text-[10px] text-brand-cream/70 mt-1">© ۱۳۷۴ - ۱۴۰۳ | تمامی حقوق محفوظ است</p>
     </footer>
   );
 }
-
-export default Footer;
