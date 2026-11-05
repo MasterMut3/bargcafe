@@ -28,5 +28,15 @@
     "image": null,
     "available": true,
     "sortOrder": 3
+  },
+  {
+    "id": "bdbf9a5c-ea01-4f94-a008-f2637815d995",
+    "categoryId": "coffee",
+    "name": "کافه موکا",
+    "description": "اسپرسو و شیر",
+    "price": 120000,
+    "image": null,
+    "available": true,
+    "sortOrder": 5
   }
 ]

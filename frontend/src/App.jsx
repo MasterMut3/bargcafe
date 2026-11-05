@@ -9,11 +9,8 @@ import SpecialSection from "./components/SpecialSection";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import SearchModal from "./components/SearchModal";
-
-import {
-  categories,
-  menuItems,
-} from "./data/menu";
+import categories from "../../content/categories.json";
+import menuItems from "../../content/items.json";
 
 import "./styles/cafebarg.css";
 
